@@ -114,5 +114,9 @@ public interface ItemDAO extends DSpaceObjectLegacySupportDAO<Item>
      * @throws SQLException if database error
      */
     int countItems(Context context, boolean includeArchived, boolean includeWithdrawn) throws SQLException;
+
+	List<Item> findAll(Context context) throws SQLException;
+
+	List<Item> findBySubmitter(Context context, UUID submitterId) throws SQLException;
     
 }

@@ -20,6 +20,7 @@ import org.hibernate.criterion.Restrictions;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Hibernate implementation of the Database Access Object interface class for the MetadataValue object.
@@ -81,6 +82,13 @@ public class MetadataValueDAOImpl extends AbstractHibernateDAO<MetadataValue> im
     @Override
     public int countRows(Context context) throws SQLException {
         return count(createQuery(context, "SELECT count(*) FROM MetadataValue"));
+    }
+    
+    @Override
+    public List<MetadataValue> findByDspaceObject(Context context, UUID dspaceUuid) throws SQLException {
+        Query query = createQuery(context, "FROM MetadataValue WHERE dspace_object_id = :dspaceUuid");
+        query.setParameter("dspaceUuid", dspaceUuid);
+        return list(query);
     }
 
 }

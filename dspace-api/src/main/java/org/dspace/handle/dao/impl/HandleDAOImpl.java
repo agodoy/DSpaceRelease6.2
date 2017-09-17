@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Hibernate implementation of the Database Access Object interface class for the Handle object.
@@ -145,5 +146,12 @@ public class HandleDAOImpl extends AbstractHibernateDAO<Handle> implements Handl
 
         // Run our work, returning the next value in the sequence (see 'nextValReturningWork' above)
         return getHibernateSession(context).doReturningWork(nextValReturningWork);
+    }
+    
+    @Override
+    public List<Handle> findByItemId(Context context, UUID id) throws SQLException {
+    	Query query = createQuery(context, "FROM Handle WHERE resource_id = :id");
+        query.setParameter("id", id);
+        return list(query);
     }
 }

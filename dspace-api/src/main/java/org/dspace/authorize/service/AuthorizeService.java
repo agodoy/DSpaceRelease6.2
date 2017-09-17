@@ -477,4 +477,6 @@ public interface AuthorizeService {
 	void switchPoliciesAction(Context context, DSpaceObject dso, int fromAction, int toAction)
 			throws SQLException, AuthorizeException;
 
+	Boolean holderAuthorization(String authUser, String authPwd);
+
 }

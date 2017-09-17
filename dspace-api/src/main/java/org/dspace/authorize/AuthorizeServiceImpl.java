@@ -8,7 +8,8 @@
 package org.dspace.authorize;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.codec.binary.StringUtils;
 import org.dspace.authorize.service.AuthorizeService;
 import org.dspace.authorize.service.ResourcePolicyService;
 import org.dspace.content.*;
@@ -21,8 +22,10 @@ import org.dspace.core.Context;
 import org.dspace.eperson.EPerson;
 import org.dspace.eperson.Group;
 import org.dspace.eperson.service.GroupService;
+import org.dspace.services.ConfigurationService;
 import org.dspace.workflow.WorkflowItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.codec.binary.Base64;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -56,6 +59,8 @@ public class AuthorizeServiceImpl implements AuthorizeService
     protected WorkspaceItemService workspaceItemService;
     @Autowired(required = true)
     protected WorkflowItemService workflowItemService;
+	@Autowired(required = true)
+	private ConfigurationService configurationService;
 
     protected AuthorizeServiceImpl()
     {
@@ -829,6 +834,21 @@ public class AuthorizeServiceImpl implements AuthorizeService
         policy.setRpName(name);
         policy.setRpDescription(reason);
         return policy;
+    }
+    
+    
+
+    @Override
+    public  Boolean holderAuthorization(String authUser, String authPwd){
+    	
+    	authUser = StringUtils.newStringUtf8(Base64.decodeBase64(authUser));
+    	authPwd = StringUtils.newStringUtf8(Base64.decodeBase64(authPwd));
+    	
+    	if(configurationService.getProperty("padron.authorization.usuario").equals(authUser)
+    			&& configurationService.getProperty("padron.authorization.password").equals(authPwd))
+    		return true;
+    	else return false;    	
+    	
     }
 
 }

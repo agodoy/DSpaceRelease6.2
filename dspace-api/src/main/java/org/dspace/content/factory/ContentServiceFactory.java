@@ -8,10 +8,12 @@
 package org.dspace.content.factory;
 
 import org.dspace.content.DSpaceObject;
+import org.dspace.content.StatisticsService;
 import org.dspace.content.InProgressSubmission;
 import org.dspace.content.WorkspaceItem;
 import org.dspace.content.service.*;
 import org.dspace.services.factory.DSpaceServicesFactory;
+import org.dspace.statistics.service.SolrLoggerService;
 import org.dspace.workflow.factory.WorkflowServiceFactory;
 
 import java.util.List;
@@ -52,6 +54,10 @@ public abstract class ContentServiceFactory {
     public abstract SupervisedItemService getSupervisedItemService();
 
     public abstract SiteService getSiteService();
+    
+    public abstract StatisticsService getStatisticsService();
+    
+    public abstract SolrLoggerService getSolrLoggerService();
 
     public InProgressSubmissionService getInProgressSubmissionService(InProgressSubmission inProgressSubmission)
     {

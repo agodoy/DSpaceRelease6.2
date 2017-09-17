@@ -41,6 +41,7 @@
     <bean id="storageServiceFactory" class="org.dspace.storage.bitstore.factory.StorageServiceFactoryImpl"/>
 
     <bean id="versionServiceFactory" class="org.dspace.versioning.factory.VersionServiceFactoryImpl"/>
+    <bean id="holderService" class="org.dspace.content.StatisticsServiceImpl"/>
 
     <!--Basic workflow services, comment or remove when switching to the configurable workflow -->
     <bean id="workflowServiceFactory" class="org.dspace.workflowbasic.factory.BasicWorkflowServiceFactoryImpl"/>

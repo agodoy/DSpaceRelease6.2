@@ -15,6 +15,7 @@ import org.dspace.core.GenericDAO;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Database Access Object interface class for the MetadataValue object.
@@ -35,5 +36,7 @@ public interface MetadataValueDAO extends GenericDAO<MetadataValue> {
             throws SQLException;
 
     int countRows(Context context) throws SQLException;
+
+	List<MetadataValue> findByDspaceObject(Context context, UUID uuid) throws SQLException;
 
 }

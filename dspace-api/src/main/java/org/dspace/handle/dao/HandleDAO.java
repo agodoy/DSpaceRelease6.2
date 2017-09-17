@@ -14,6 +14,7 @@ import org.dspace.handle.Handle;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Database Access Object interface class for the Handle object.
@@ -37,4 +38,6 @@ public interface HandleDAO extends GenericDAO<Handle> {
     int updateHandlesWithNewPrefix(Context context, String newPrefix, String oldPrefix) throws SQLException;
 
     int countRows(Context context) throws SQLException;
+
+    public List<Handle> findByItemId(Context context, UUID uuid) throws SQLException;
 }
