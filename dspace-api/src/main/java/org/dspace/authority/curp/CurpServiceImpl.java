@@ -94,7 +94,6 @@ public class CurpServiceImpl implements CurpService {
 			} catch (Exception e) {
 				System.out.println("Ocurrió un error al procesar los CURP");
 				e.printStackTrace();
-				throw e;
 			}
 
 	}
