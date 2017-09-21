@@ -4,403 +4,396 @@
 
 <input-forms>
 
- <!-- The form-map maps collection handles to forms. DSpace does not       -->
- <!-- require a collection name to be unique, not even within a community. -->
- <!-- DSpace does however ensure that each collection's handle is unique.  -->
- <!-- Form-map provides the means to associate a unique collection name    -->
- <!-- with a form. The form-map also provides the special handle "default" -->
- <!-- (which is never a collection), here mapped to "traditional". Any     -->
- <!-- collection which does not appear in this map will be associated with -->
- <!-- the mapping for handle "default".                                    -->
+	<!-- The form-map maps collection handles to forms. DSpace does not       -->
+	<!-- require that a collection's name be unique, even within a community .-->
+	<!-- DSpace does however insure that each collection's handle is unique.  -->
+	<!-- Form-map provides the means to associate a unique collection name    -->
+	<!-- with a form. The form-map also provides the special handle "default" -->
+	<!-- (which is never a collection), here mapped to "traditional". Any     -->
+	<!-- collection which does not appear in this map will be associated with -->
+	<!-- the mapping for handle "default".                                    -->
 
- <form-map>
-   <name-map collection-handle="default" form-name="traditional" />
- </form-map>
-
-
- <!-- The form-definitions map lays out the detailed definition of all the -->
- <!-- submission forms. Each separate form set has a unique name as an     -->
- <!-- attribute. This name matches one of the names in the form-map. One   -->
- <!-- named form set has the name "traditional"; as this name suggests,    -->
- <!-- it is the old style and is also the default, which gets used when    -->
- <!-- the specified collection has no correspondingly-named form set.      -->
- <!--                                                                      -->
- <!-- Each form set contains an ordered set of pages; each page defines    -->
- <!-- one submission metadata entry screen. Each page has an ordered list  -->
- <!-- of field definitions, Each field definition corresponds to one       -->
- <!-- metadata entry (a so-called row), which has a DC element name, a    -->
- <!-- displayed label, a text string prompt which is called a hint, and    -->
- <!-- an input-type. Each field also may hold optional elements: DC        -->
- <!-- qualifier name, a repeatable flag, and a text string whose presence  -->
- <!-- serves as a 'this field is required' flag.                           -->
-
- <form-definitions>
-
-   <form name="traditional">
-     <page number="1">
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>author</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Authors</label>
-         <input-type>name</input-type>
-         <hint>Enter the names of the authors of this item.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>title</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Title</label>
-         <input-type>onebox</input-type>
-         <hint>Enter the main title of the item.</hint>
-         <required>You must enter a main title for this item.</required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>title</dc-element>
-         <dc-qualifier>alternative</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Other Titles</label>
-         <input-type>onebox</input-type>
-         <hint>If the item has any alternative titles, please enter them here.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>date</dc-element>
-         <dc-qualifier>issued</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Date of Issue</label>
-         <input-type>date</input-type>
-         <hint>Please give the date of previous publication or public distribution.
-                        You can leave out the day and/or month if they aren't
-                        applicable.</hint>
-         <required>You must enter at least the year.</required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>publisher</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Publisher</label>
-         <input-type>onebox</input-type>
-         <hint>Enter the name of the publisher of the previously issued instance of this item.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>citation</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Citation</label>
-         <input-type>onebox</input-type>
-         <hint>Enter the standard citation for the previously issued instance of this item.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>relation</dc-element>
-         <dc-qualifier>ispartofseries</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Series/Report No.</label>
-         <input-type>series</input-type>
-         <hint>Enter the series and number assigned to this item by your community.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
-         <repeatable>true</repeatable>
-         <label>Identifiers</label>
-         <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
-         <hint>If the item has any identification numbers or codes associated with
-it, please enter the types and the actual numbers or codes.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>type</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Type</label>
-         <input-type value-pairs-name="common_types">dropdown</input-type>
-         <hint>Select the type(s) of content of the item. To select more than one value in the list, you may have to hold down the "CTRL" or "Shift" key.</hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>language</dc-element>
-         <dc-qualifier>iso</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Language</label>
-         <input-type value-pairs-name="common_iso_languages">dropdown</input-type>
-         <hint>Select the language of the main content of the item.  If the language does not appear in the list, please select 'Other'.  If the content does not really have a language (for example, if it is a dataset or an image) please select 'N/A'.</hint>
-         <required></required>
-       </field>
-     </page>
-
-     <page number="2">
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>subject</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <!-- An input-type of twobox MUST be marked as repeatable -->
-         <repeatable>true</repeatable>
-         <label>Subject Keywords</label>
-         <input-type>twobox</input-type>
-         <hint>Enter appropriate subject keywords or phrases. </hint>
-         <required></required>
-         <vocabulary>srsc</vocabulary>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>description</dc-element>
-         <dc-qualifier>abstract</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Abstract</label>
-         <input-type>textarea</input-type>
-         <hint>Enter the abstract of the item. </hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>description</dc-element>
-         <dc-qualifier>sponsorship</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Sponsors</label>
-         <input-type>textarea</input-type>
-         <hint>Enter the names of any sponsors and/or funding codes in the box. </hint>
-         <required></required>
-       </field>
-
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>description</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Description</label>
-         <input-type>textarea</input-type>
-         <hint>Enter any other description or comments in this box. </hint>
-         <required></required>
-       </field>
-     </page>
-   </form>
-
-   <form name="one">
-     <page number="1">
-       <field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>author</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>One: Authors</label>
-         <input-type>name</input-type>
-         <hint>Enter the names of the authors of this item.</hint>
-         <required></required>
-       </field>
-      </page>
-    </form>
- </form-definitions>
+	<form-map>
+		<name-map collection-handle="default" form-name="traditional" />
+	</form-map>
 
 
- <!-- form-value-pairs populate dropdown and qualdrop-value lists.          -->
- <!-- The form-value-pairs element holds child elements named 'value-pairs' -->
- <!-- A 'value-pairs' element has a value-pairs-name and a dc-term          -->
- <!-- attribute. The dc-term attribute specifies which to which Dublin Core -->
- <!-- Term this set of value-pairs applies.                                 -->
- <!--     Current dc-terms are: identifier-pairs, type-pairs, and           -->
- <!--     language_iso-pairs. The name attribute matches a name             -->
- <!--     in the form-map, above.                                           -->
- <!-- A value-pair contains one 'pair' for each value displayed in the list -->
- <!-- Each pair contains a 'displayed-value' element and a 'stored-value'   -->
- <!-- element. A UI list displays the displayed-values, but the program     -->
- <!-- stores the associated stored-values in the database.                  -->
+	<!-- The form-definitions map lays out the detailed definition of all the -->
+	<!-- submission forms.Each separate form set has a unique name as an      -->
+	<!-- attribute. This name matches one of the names in the form-map. One   -->
+	<!-- named form set has the name "traditional"; as this name suggests,    -->
+	<!-- it is the old style and is also the default, which gets used when    -->
+	<!-- the specified collection has no correspondingly named form set.      -->
+	<!--                                                                      -->
+	<!-- Each form set contains an ordered set of pages; each page defines    -->
+	<!-- one submission metadata entry screen. Each page has an ordered list  -->
+	<!-- of field definitions, Each field definition corresponds to one       -->
+	<!-- metatdata entry (a so-called row), which has a DC element name, a    -->
+	<!-- displayed label, a text string prompt which is called a hint , and   -->
+	<!-- an input-type. Each field also may hold optional elements: DC        -->
+	<!-- qualifier name, a repeatable flag, and a text string whose presence  -->
+	<!-- serves as a 'this field is required' flag.                           -->
 
- <form-value-pairs>
-   <value-pairs value-pairs-name="common_identifiers" dc-term="identifier">
-     <pair>
-       <displayed-value>ISSN</displayed-value>
-       <stored-value>issn</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Other</displayed-value>
-       <stored-value>other</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>ISMN</displayed-value>
-       <stored-value>ismn</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Gov't Doc #</displayed-value>
-       <stored-value>govdoc</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>URI</displayed-value>
-       <stored-value>uri</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>ISBN</displayed-value>
-       <stored-value>isbn</stored-value>
-     </pair>
-   </value-pairs>
+	<form-definitions>
 
-   <value-pairs value-pairs-name="common_types" dc-term="type">
-     <pair>
-       <displayed-value>Animation</displayed-value>
-       <stored-value>Animation</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Article</displayed-value>
-       <stored-value>Article</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Book</displayed-value>
-       <stored-value>Book</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Book chapter</displayed-value>
-       <stored-value>Book chapter</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Dataset</displayed-value>
-       <stored-value>Dataset</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Learning Object</displayed-value>
-       <stored-value>Learning Object</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Image</displayed-value>
-       <stored-value>Image</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Image, 3-D</displayed-value>
-       <stored-value>Image, 3-D</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Map</displayed-value>
-       <stored-value>Map</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Musical Score</displayed-value>
-       <stored-value>Musical Score</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Plan or blueprint</displayed-value>
-       <stored-value>Plan or blueprint</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Preprint</displayed-value>
-       <stored-value>Preprint</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Presentation</displayed-value>
-       <stored-value>Presentation</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Recording, acoustical</displayed-value>
-       <stored-value>Recording, acoustical</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Recording, musical</displayed-value>
-       <stored-value>Recording, musical</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Recording, oral</displayed-value>
-       <stored-value>Recording, oral</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Software</displayed-value>
-       <stored-value>Software</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Technical Report</displayed-value>
-       <stored-value>Technical Report</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Thesis</displayed-value>
-       <stored-value>Thesis</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Video</displayed-value>
-       <stored-value>Video</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Working Paper</displayed-value>
-       <stored-value>Working Paper</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Other</displayed-value>
-       <stored-value>Other</stored-value>
-     </pair>
-   </value-pairs>
+		<form name="traditional">
+			<page number="1">
 
-   <!-- default language order: (from dspace 1.2.1)
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>title</dc-element>
+					<dc-qualifier/>
+					<repeatable>false</repeatable>
+					<label>T&#xed;tulo</label>
+					<input-type>onebox</input-type>
+					<hint>Escribe el t&#xed;tulo principal del Recuso.</hint>
+					<required>Debes escribir el t&#xed;tulo del recurso.</required>
+				</field>
+
+				<!--field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>title</dc-element>
+					<dc-qualifier>alternative</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>Otros t&#xed;tulos</label>
+					<input-type>onebox</input-type>
+					<hint>Otros t&#xed;tulos, traducciones, etc.</hint>
+					<required/>
+				</field-->
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>contributor</dc-element>
+					<dc-qualifier>author</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>Autor</label>
+					<input-type>name</input-type>
+					<hint>Escribe el nombre de los autores.</hint>
+					<required>Debes escribir el autor principal del recurso</required>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>contributor</dc-element>
+					<dc-qualifier>advisor</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>Tutor</label>
+					<input-type>name</input-type>
+					<hint>Escribe el nombre del tutor, si aplica.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>date</dc-element>
+					<dc-qualifier>issued</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Fecha de publicaci&#xF3;n</label>
+					<input-type>date</input-type>
+					<hint>Obligatorio</hint>
+					<required>Obligatoria fecha de publicaci&#xF3;n.</required>
+				</field>
+				
+				<field>
+					<dc-schema>thesis</dc-schema>
+					<dc-element>degree</dc-element>
+					<dc-qualifier>grantor</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Instituci&#xF3;n que otorga el grado</label>
+					<input-type>onebox</input-type>
+					<hint>Tesis - Instituci&#xF3;n que concede el grado asociado con el trabajo. Al igual que otros nombres e instituciones, este campo debe ingresarse en forma de texto libre tal como aparece en la portada.</hint>
+					<required/>
+				</field>
+				
+				<field>
+					<dc-schema>thesis</dc-schema>
+					<dc-element>degree</dc-element>
+					<dc-qualifier>discipline</dc-qualifier> 
+					<repeatable>false</repeatable>
+					<label>Disciplina</label>
+					<input-type>onebox</input-type>
+					<hint>Tesis - area de estudio del contenido intelectual del documento. Normalmente, este sera el nombre de un programa o departamento.</hint>
+					<required/>
+				</field>
+				
+				<field>
+					<dc-schema>thesis</dc-schema>
+					<dc-element>degree</dc-element>
+					<dc-qualifier>name</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Grado</label>
+					<input-type>onebox</input-type>
+					<hint>Tesis - Nombre del grado asociado con el trabajo tal como aparece dentro del trabajo.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>publisher</dc-element>
+					<dc-qualifier/>
+					<repeatable>true</repeatable>
+					<label>Editor</label>
+					<input-type>onebox</input-type>
+					<hint>Escribe el edito, obligatorio si aplica*</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>identifier</dc-element>
+					<dc-qualifier>citation</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Cita</label>
+					<input-type>onebox</input-type>
+					<hint>Escriba la cita para el recurso.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>relation</dc-element>
+					<dc-qualifier>ispartofseries</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>Serie/Colecci&#xF3;n</label>
+					<input-type>onebox</input-type>
+					<hint>T&#xed;tulo de la Serie/Colecci&#xF3;n a la que pertenece el recurso.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>identifier</dc-element>
+					<dc-qualifier/>
+					<!-- An input-type of qualdrop_value MUST be marked as repeatable -->
+					<repeatable>true</repeatable>
+					<label>Identificador</label>
+					<input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
+					<hint>Si el recurso tiene alg&#xfa;n identificador, capturelo.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>type</dc-element>
+					<dc-qualifier/>
+					<repeatable>true</repeatable>
+					<label>Tipo</label>
+					<input-type value-pairs-name="common_types">dropdown</input-type>
+					<hint>Seleccione el tipo de recurso. Para seleccionar mas de uno, manten presionada la tecla "CTRL" o "Shift".</hint>
+					<required>Seleciona el tipo de recurso</required>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>language</dc-element>
+					<dc-qualifier>iso</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Idioma</label>
+					<input-type value-pairs-name="common_iso_languages">dropdown</input-type>
+					<hint>Selecciona el idioma principal del recurso.</hint>
+					<required>Seleciona el idioma del recurso</required>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>format</dc-element>
+					<dc-qualifier/>
+					<repeatable>false</repeatable>
+					<label>Formato</label>
+					<input-type value-pairs-name="common_format">dropdown</input-type>
+					<hint>Selecciona el formato del recurso.</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>rights</dc-element>
+					<dc-qualifier/>
+					<repeatable>false</repeatable>
+					<label>Nivel de Acceso</label>
+					<input-type value-pairs-name="common_acceso">dropdown</input-type>
+					<hint>Indicar el tipo de acceso seg&#xfa;n los derechos de autor</hint>
+					<required>Debe seleccionar uno de la lista</required>
+				</field>	 
+
+				 <!-- field>
+                                        <dc-schema>dc</dc-schema>
+                                        <dc-element>rights</dc-element>
+                                        <dc-qualifier>license</dc-qualifier>
+                                        <repeatable>false</repeatable>
+                                        <label>Licencia CC</label>
+                                        <input-type>onebox</input-type>
+                                        <hint>Indicar</hint>
+                                        <required></required>
+                                </field -->
+
+			</page>
+
+			<page number="2">
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>audience</dc-element>
+					<dc-qualifier/>
+					<repeatable>true</repeatable>
+					<label>Audiencia</label>
+					<input-type value-pairs-name="common_audiencia">dropdown</input-type>
+					<hint>Audiencia a la que esta dirigida</hint>
+					<required/>
+				</field>
+
+				
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>subject</dc-element>
+					<dc-qualifier/>
+					<!-- An input-type of twobox MUST be marked as repeatable -->
+					<repeatable>true</repeatable>
+					<label>Palabras claves</label>
+					<input-type>twobox</input-type>
+					<hint/>
+					<required/>
+				</field>
+				
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>subject</dc-element>
+					<dc-qualifier>classification</dc-qualifier>
+					<!-- An input-type of twobox MUST be marked as repeatable -->
+					<repeatable>true</repeatable>
+					<label>Materia</label>
+					<input-type>twobox</input-type>
+					<hint>Selecciona una materia del catalogo</hint>
+					<required/>
+					<vocabulary>dcsubject</vocabulary>
+				</field>
+				
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>subject</dc-element>
+					<dc-qualifier>lcc</dc-qualifier>
+					<!-- An input-type of twobox MUST be marked as repeatable -->
+					<repeatable>true</repeatable>
+					<label>Materia</label>
+					<input-type>twobox</input-type>
+					<hint></hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>description</dc-element>
+					<dc-qualifier>abstract</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Resumen</label>
+					<input-type>textarea</input-type>
+					<hint>Escribe el resumen del recurso</hint>
+					<required/>
+				</field>
+
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>description</dc-element>
+					<dc-qualifier>sponsorship</dc-qualifier>
+					<repeatable>false</repeatable>
+					<label>Patrocinador</label>
+					<input-type>textarea</input-type>
+					<hint>Escriba el nombre o nombres de los patrocinadores</hint>
+					<required/>
+				</field>
+
+				<!-- field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>description</dc-element>
+					<dc-qualifier/>
+					<repeatable>false</repeatable>
+					<label>Descripci&#xF3;n</label>
+					<input-type>textarea</input-type>
+					<hint/>
+					<required/>
+				</field -->
+				
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>relation</dc-element>
+					<dc-qualifier>dataset</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>Tabla de contenido</label>
+					<input-type>textarea</input-type>
+					<hint>HTTP URI que apunte al conjunto de datos que dio origen al recurso</hint>
+					<required/>
+				</field>
+				
+			</page>
+		</form>
+
+		<form name="one">
+			<page number="1">
+				<field>
+					<dc-schema>dc</dc-schema>
+					<dc-element>contributor</dc-element>
+					<dc-qualifier>author</dc-qualifier>
+					<repeatable>true</repeatable>
+					<label>One: Authors</label>
+					<input-type>name</input-type>
+					<hint>Enter the names of the authors of this item below.</hint>
+					<required/>
+				</field>
+			</page>
+		</form>
+	</form-definitions>
+
+
+	<!-- form-value-pairs populate dropdown and qualdrop-value lists.          -->
+	<!-- The form-value-pairs element holds child elements named 'value-pairs' -->
+	<!-- A 'value-pairs' element has a value-pairs-name and a dc-term          -->
+	<!-- attribute. The dc-term attribute specifies which to which Dublin Core -->
+	<!-- Term this set of value-pairs applies.                                 -->
+	<!--     Current dc-terms are: identifier-pairs, type-pairs, and           -->
+	<!--     language_iso-pairs. The name attribute matches a name             -->
+	<!--     in the form-map, above.                                           -->
+	<!-- A value-pair contains one 'pair' for each value displayed in the list -->
+	<!-- Each pair contains a 'displayed-value' element and a 'stored-value'   -->
+	<!-- element. A UI list displays the displayed-values, but the program     -->
+	<!-- stores the associated stored-values in the database.                  -->
+
+	<form-value-pairs>
+
+<value-pairs value-pairs-name="common_identifiers" dc-term="identifier"><pair><stored-value>other</stored-value><displayed-value>Clave de Recurso de Archivo</displayed-value></pair><pair><stored-value>hdl</stored-value><displayed-value>Handle</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Identificador de Objeto Digital</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Identificador en arXiv.org</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Identificador en PubMed</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Localizador de Recurso Uniforme</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Localizador de Recurso Uniforme Persistente</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Nombre de Recurso Uniforme</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>N&#xFA;mero de Acceso en Web of Science</displayed-value></pair><pair><stored-value>isbn</stored-value><displayed-value>ISBN</displayed-value></pair><pair><stored-value>issn</stored-value><displayed-value>ISSN</displayed-value></pair></value-pairs>
+
+<value-pairs value-pairs-name="common_types" dc-term="type"><pair><stored-value>annotation</stored-value><displayed-value>Anotaci&#xF3;n</displayed-value></pair><pair><stored-value>article</stored-value><displayed-value>Art&#xED;culo</displayed-value></pair><pair><stored-value>bookPart</stored-value><displayed-value>Cap&#xED;tulo de libro</displayed-value></pair><pair><stored-value>conferenceObject</stored-value><displayed-value>Objeto de congreso</displayed-value></pair><pair><stored-value>contributionToPeriodical</stored-value><displayed-value>Contribuci&#xF3;n a publicaci&#xF3;n peri&#xF3;dica</displayed-value></pair><pair><stored-value>conferenceContribution</stored-value><displayed-value>Objeto de congreso no publicado</displayed-value></pair><pair><stored-value>technicalDocumentation</stored-value><displayed-value>Documentaci&#xF3;n t&#xE9;cnica</displayed-value></pair><pair><stored-value>workingPaper</stored-value><displayed-value>Documento de trabajo</displayed-value></pair><pair><stored-value>lecture</stored-value><displayed-value>Conferencia</displayed-value></pair><pair><stored-value>book</stored-value><displayed-value>Libro</displayed-value></pair><pair><stored-value>conferenceProceedings</stored-value><displayed-value>Memoria de congreso</displayed-value></pair><pair><stored-value>reportPart</stored-value><displayed-value>Parte de reporte</displayed-value></pair><pair><stored-value>patent</stored-value><displayed-value>Patente</displayed-value></pair><pair><stored-value>conferencePaper</stored-value><displayed-value>&#xCD;tem publicado en memoria de congreso</displayed-value></pair><pair><stored-value>conferencePoster</stored-value><displayed-value>P&#xF3;ster de congreso</displayed-value></pair><pair><stored-value>preprint</stored-value><displayed-value>Preimpreso</displayed-value></pair><pair><stored-value>researchProposal</stored-value><displayed-value>Protocolo de investigaci&#xF3;n</displayed-value></pair><pair><stored-value>report</stored-value><displayed-value>Reporte</displayed-value></pair><pair><stored-value>review</stored-value><displayed-value>Rese&#xF1;a</displayed-value></pair><pair><stored-value>doctoralThesis</stored-value><displayed-value>Tesis de doctorado</displayed-value></pair><pair><stored-value>bachelorThesis</stored-value><displayed-value>Tesis de licenciatura</displayed-value></pair><pair><stored-value>masterThesis</stored-value><displayed-value>Tesis de maestr&#xED;a</displayed-value></pair></value-pairs>
+
+
+<value-pairs value-pairs-name="common_format" dc-term="formato"><pair><stored-value>unknown</stored-value><displayed-value>Unknown</displayed-value></pair><pair><stored-value>pdf</stored-value><displayed-value>Adobe PDF</displayed-value></pair><pair><stored-value>xml</stored-value><displayed-value>XML</displayed-value></pair><pair><stored-value>txt</stored-value><displayed-value>Text</displayed-value></pair><pair><stored-value>html</stored-value><displayed-value>HTML</displayed-value></pair><pair><stored-value>css</stored-value><displayed-value>CSS</displayed-value></pair><pair><stored-value>doc</stored-value><displayed-value>Microsoft Word</displayed-value></pair><pair><stored-value>docx</stored-value><displayed-value>Microsoft Word XML</displayed-value></pair><pair><stored-value>ppt</stored-value><displayed-value>Microsoft Powerpoint</displayed-value></pair><pair><stored-value>pptx</stored-value><displayed-value>Microsoft Powerpoint XML</displayed-value></pair><pair><stored-value>xls</stored-value><displayed-value>Microsoft Excel</displayed-value></pair><pair><stored-value>xlsx</stored-value><displayed-value>Microsoft Excel XML</displayed-value></pair><pair><stored-value>marc</stored-value><displayed-value>MARC</displayed-value></pair><pair><stored-value>jpeg</stored-value><displayed-value>JPEG</displayed-value></pair><pair><stored-value>gif</stored-value><displayed-value>GIF</displayed-value></pair><pair><stored-value>png</stored-value><displayed-value>image/png</displayed-value></pair><pair><stored-value>tiff</stored-value><displayed-value>TIFF</displayed-value></pair><pair><stored-value>aiff</stored-value><displayed-value>AIFF</displayed-value></pair><pair><stored-value>au</stored-value><displayed-value>audio/basic</displayed-value></pair><pair><stored-value>wav</stored-value><displayed-value>WAV</displayed-value></pair><pair><stored-value>mpeg</stored-value><displayed-value>MPEG</displayed-value></pair><pair><stored-value>rtf</stored-value><displayed-value>RTF</displayed-value></pair><pair><stored-value>vsd</stored-value><displayed-value>Microsoft Visio</displayed-value></pair><pair><stored-value>fm</stored-value><displayed-value>FMP3</displayed-value></pair><pair><stored-value>bmp</stored-value><displayed-value>BMP</displayed-value></pair><pair><stored-value>psd</stored-value><displayed-value>Photoshop</displayed-value></pair><pair><stored-value>ps</stored-value><displayed-value>Postscript</displayed-value></pair><pair><stored-value>mov</stored-value><displayed-value>Video Quicktime</displayed-value></pair><pair><stored-value>mpeg</stored-value><displayed-value>MPEG Audio</displayed-value></pair><pair><stored-value>mpp</stored-value><displayed-value>Microsoft Project</displayed-value></pair><pair><stored-value>ma</stored-value><displayed-value>Mathematica</displayed-value></pair><pair><stored-value>latex</stored-value><displayed-value>LateX</displayed-value></pair><pair><stored-value>tex</stored-value><displayed-value>TeX</displayed-value></pair><pair><stored-value>dvi</stored-value><displayed-value>TeX dvi</displayed-value></pair><pair><stored-value>sgml</stored-value><displayed-value>SGML</displayed-value></pair><pair><stored-value>wpd</stored-value><displayed-value>WordPerfect</displayed-value></pair><pair><stored-value>ra</stored-value><displayed-value>RealAudio</displayed-value></pair><pair><stored-value>pcd</stored-value><displayed-value>Photo CD</displayed-value></pair><pair><stored-value>odt</stored-value><displayed-value>OpenDocument Text</displayed-value></pair><pair><stored-value>ott</stored-value><displayed-value>OpenDocument Text Template</displayed-value></pair><pair><stored-value>oth</stored-value><displayed-value>OpenDocument HTML Template</displayed-value></pair><pair><stored-value>odm</stored-value><displayed-value>OpenDocument Master Document</displayed-value></pair><pair><stored-value>odg</stored-value><displayed-value>OpenDocument Drawing</displayed-value></pair><pair><stored-value>otg</stored-value><displayed-value>OpenDocument Drawing Template</displayed-value></pair><pair><stored-value>odp</stored-value><displayed-value>OpenDocument Presentation</displayed-value></pair><pair><stored-value>otp</stored-value><displayed-value>OpenDocument Presentation Template</displayed-value></pair><pair><stored-value>ods</stored-value><displayed-value>OpenDocument Spreadsheet</displayed-value></pair><pair><stored-value>ots</stored-value><displayed-value>OpenDocument Spreadsheet Template</displayed-value></pair><pair><stored-value>odc</stored-value><displayed-value>OpenDocument Chart</displayed-value></pair><pair><stored-value>odf</stored-value><displayed-value>OpenDocument Formula</displayed-value></pair><pair><stored-value>odb</stored-value><displayed-value>OpenDocument Database</displayed-value></pair><pair><stored-value>odi</stored-value><displayed-value>OpenDocument Image</displayed-value></pair><pair><stored-value>oxt</stored-value><displayed-value>OpenOffice.org extension</displayed-value></pair><pair><stored-value>sxw</stored-value><displayed-value>Writer 6.0 documents</displayed-value></pair><pair><stored-value>stw</stored-value><displayed-value>Writer 6.0 templates</displayed-value></pair><pair><stored-value>sxc</stored-value><displayed-value>Calc 6.0 spreadsheets</displayed-value></pair><pair><stored-value>stc</stored-value><displayed-value>Calc 6.0 templates</displayed-value></pair><pair><stored-value>sxd</stored-value><displayed-value>Draw 6.0 documents</displayed-value></pair><pair><stored-value>std</stored-value><displayed-value>Draw 6.0 templates</displayed-value></pair><pair><stored-value>sxi</stored-value><displayed-value>Impress 6.0 presentations</displayed-value></pair><pair><stored-value>sti</stored-value><displayed-value>Impress 6.0 templates</displayed-value></pair><pair><stored-value>sxg</stored-value><displayed-value>Writer 6.0 global documents</displayed-value></pair><pair><stored-value>sxm</stored-value><displayed-value>Math 6.0 documents</displayed-value></pair><pair><stored-value>sdw</stored-value><displayed-value>StarWriter 5.x documents</displayed-value></pair><pair><stored-value>sgl</stored-value><displayed-value>StarWriter 5.x global documents</displayed-value></pair><pair><stored-value>sdc</stored-value><displayed-value>StarCalc 5.x spreadsheets</displayed-value></pair><pair><stored-value>sda</stored-value><displayed-value>StarDraw 5.x documents</displayed-value></pair><pair><stored-value>sdd</stored-value><displayed-value>StarImpress 5.x presentations</displayed-value></pair><pair><stored-value>sdp</stored-value><displayed-value>StarImpress Packed 5.x files</displayed-value></pair><pair><stored-value>smf</stored-value><displayed-value>StarMath 5.x documents</displayed-value></pair><pair><stored-value>sds</stored-value><displayed-value>StarChart 5.x documents</displayed-value></pair><pair><stored-value>sdm</stored-value><displayed-value>StarMail 5.x mail files</displayed-value></pair><pair><stored-value>rdf</stored-value><displayed-value>RDF XML</displayed-value></pair><pair><stored-value>csv</stored-value><displayed-value>CSV</displayed-value></pair><pair><stored-value>rar</stored-value><displayed-value>RAR</displayed-value></pair><pair><stored-value>zip</stored-value><displayed-value>ZIP</displayed-value></pair><pair><stored-value>svg</stored-value><displayed-value>SVG</displayed-value></pair></value-pairs>
+
+
+		<!-- default language order: (from dspace 1.2.1)
         "en_US", "en", "es", "de", "fr", "it", "ja", "zh", "other", ""
      -->
-   <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso">
-     <pair>
-       <displayed-value>N/A</displayed-value>
-       <stored-value></stored-value>
-     </pair>
-     <pair>
-       <displayed-value>English (United States)</displayed-value>
-       <stored-value>en_US</stored-value>
-      </pair>
-     <pair>
-       <displayed-value>English</displayed-value>
-       <stored-value>en</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Spanish</displayed-value>
-       <stored-value>es</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>German</displayed-value>
-       <stored-value>de</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>French</displayed-value>
-       <stored-value>fr</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Italian</displayed-value>
-       <stored-value>it</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Japanese</displayed-value>
-       <stored-value>ja</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Chinese</displayed-value>
-       <stored-value>zh</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>Turkish</displayed-value>
-       <stored-value>tr</stored-value>
-     </pair>
-     <pair>
-       <displayed-value>(Other)</displayed-value>
-       <stored-value>other</stored-value>
-     </pair>
-   </value-pairs>
+	 <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso"><pair><stored-value>spa</stored-value><displayed-value>Espa&#xF1;ol</displayed-value></pair><pair><stored-value>afr</stored-value><displayed-value>Africaans</displayed-value></pair><pair><stored-value>sqi</stored-value><displayed-value>Alban&#xE9;s</displayed-value></pair><pair><stored-value>amh</stored-value><displayed-value>Am&#xE1;rico</displayed-value></pair><pair><stored-value>ara</stored-value><displayed-value>&#xC1;rabe</displayed-value></pair><pair><stored-value>hye</stored-value><displayed-value>Armenio</displayed-value></pair><pair><stored-value>asm</stored-value><displayed-value>Asam&#xE9;s</displayed-value></pair><pair><stored-value>bak</stored-value><displayed-value>Baskir</displayed-value></pair><pair><stored-value>eus</stored-value><displayed-value>Vasco</displayed-value></pair><pair><stored-value>bel</stored-value><displayed-value>Bielorruso</displayed-value></pair><pair><stored-value>ben</stored-value><displayed-value>Bengal&#xED;</displayed-value></pair><pair><stored-value>bre</stored-value><displayed-value>Bret&#xF3;n</displayed-value></pair><pair><stored-value>bul</stored-value><displayed-value>B&#xFA;lgaro</displayed-value></pair><pair><stored-value>cat</stored-value><displayed-value>Catal&#xE1;n</displayed-value></pair><pair><stored-value>cos</stored-value><displayed-value>Corsa</displayed-value></pair><pair><stored-value>hrv</stored-value><displayed-value>Croata</displayed-value></pair><pair><stored-value>ces</stored-value><displayed-value>Checo</displayed-value></pair><pair><stored-value>dan</stored-value><displayed-value>Dan&#xE9;s</displayed-value></pair><pair><stored-value>prs</stored-value><displayed-value>Dari</displayed-value></pair><pair><stored-value>nld</stored-value><displayed-value>Holand&#xE9;s</displayed-value></pair><pair><stored-value>eng</stored-value><displayed-value>Ingl&#xE9;s</displayed-value></pair><pair><stored-value>est</stored-value><displayed-value>Estonio</displayed-value></pair><pair><stored-value>fao</stored-value><displayed-value>Fero&#xE9;s</displayed-value></pair><pair><stored-value>fil</stored-value><displayed-value>Filipino</displayed-value></pair><pair><stored-value>fin</stored-value><displayed-value>Finland&#xE9;s</displayed-value></pair><pair><stored-value>fra</stored-value><displayed-value>Franc&#xE9;s</displayed-value></pair><pair><stored-value>glg</stored-value><displayed-value>Gallego</displayed-value></pair><pair><stored-value>kat</stored-value><displayed-value>Georgiano</displayed-value></pair><pair><stored-value>deu</stored-value><displayed-value>Alem&#xE1;n</displayed-value></pair><pair><stored-value>guj</stored-value><displayed-value>Gujarati</displayed-value></pair><pair><stored-value>heb</stored-value><displayed-value>Hebreo</displayed-value></pair><pair><stored-value>hin</stored-value><displayed-value>Hindi</displayed-value></pair><pair><stored-value>hun</stored-value><displayed-value>H&#xFA;ngaro</displayed-value></pair><pair><stored-value>isl</stored-value><displayed-value>Island&#xE9;s</displayed-value></pair><pair><stored-value>ibo</stored-value><displayed-value>Igbo</displayed-value></pair><pair><stored-value>ind</stored-value><displayed-value>Indonesio</displayed-value></pair><pair><stored-value>gle</stored-value><displayed-value>Irland&#xE9;s</displayed-value></pair><pair><stored-value>ita</stored-value><displayed-value>Italiano</displayed-value></pair><pair><stored-value>jpn</stored-value><displayed-value>Japon&#xE9;s</displayed-value></pair><pair><stored-value>kan</stored-value><displayed-value>Kannada</displayed-value></pair><pair><stored-value>kaz</stored-value><displayed-value>Kazajo</displayed-value></pair><pair><stored-value>kin</stored-value><displayed-value>Kinyarwanda</displayed-value></pair><pair><stored-value>kor</stored-value><displayed-value>Coreano</displayed-value></pair><pair><stored-value>lao</stored-value><displayed-value>Lao</displayed-value></pair><pair><stored-value>lav</stored-value><displayed-value>Let&#xF3;n</displayed-value></pair><pair><stored-value>lit</stored-value><displayed-value>Lituano</displayed-value></pair><pair><stored-value>dsb</stored-value><displayed-value>Bajo sorbio</displayed-value></pair><pair><stored-value>ltz</stored-value><displayed-value>Luxemburgu&#xE9;s</displayed-value></pair><pair><stored-value>mal</stored-value><displayed-value>Malayalam</displayed-value></pair><pair><stored-value>mlt</stored-value><displayed-value>Malt&#xE9;s</displayed-value></pair><pair><stored-value>mri</stored-value><displayed-value>Maor&#xED;</displayed-value></pair><pair><stored-value>arn</stored-value><displayed-value>Mapudungun</displayed-value></pair><pair><stored-value>mar</stored-value><displayed-value>Marathi</displayed-value></pair><pair><stored-value>moh</stored-value><displayed-value>Mohawk</displayed-value></pair><pair><stored-value>fas</stored-value><displayed-value>Persa</displayed-value></pair><pair><stored-value>pol</stored-value><displayed-value>Polaco</displayed-value></pair><pair><stored-value>por</stored-value><displayed-value>Portugu&#xE9;s</displayed-value></pair><pair><stored-value>que</stored-value><displayed-value>Quechua</displayed-value></pair><pair><stored-value>ron</stored-value><displayed-value>Rumano</displayed-value></pair><pair><stored-value>roh</stored-value><displayed-value>Romanche</displayed-value></pair><pair><stored-value>rus</stored-value><displayed-value>Ruso</displayed-value></pair><pair><stored-value>gla</stored-value><displayed-value>Ga&#xE9;lico escoc&#xE9;s</displayed-value></pair><pair><stored-value>sin</stored-value><displayed-value>Cingal&#xE9;s</displayed-value></pair><pair><stored-value>slk</stored-value><displayed-value>Eslovaco</displayed-value></pair><pair><stored-value>slv</stored-value><displayed-value>Esloveno</displayed-value></pair><pair><stored-value>swe</stored-value><displayed-value>Sueco</displayed-value></pair><pair><stored-value>syr</stored-value><displayed-value>Sir&#xED;aco</displayed-value></pair><pair><stored-value>tam</stored-value><displayed-value>Tamil</displayed-value></pair><pair><stored-value>tat</stored-value><displayed-value>T&#xE1;rtaro</displayed-value></pair><pair><stored-value>tel</stored-value><displayed-value>Telugu</displayed-value></pair><pair><stored-value>tha</stored-value><displayed-value>Tailand&#xE9;s</displayed-value></pair><pair><stored-value>bod</stored-value><displayed-value>Tibetano</displayed-value></pair><pair><stored-value>tur</stored-value><displayed-value>Turco</displayed-value></pair><pair><stored-value>tuk</stored-value><displayed-value>Turcomano</displayed-value></pair><pair><stored-value>ukr</stored-value><displayed-value>Ucraniano</displayed-value></pair><pair><stored-value>hsb</stored-value><displayed-value>Sorbian superior</displayed-value></pair><pair><stored-value>urd</stored-value><displayed-value>Urdu</displayed-value></pair><pair><stored-value>vie</stored-value><displayed-value>Vietnamita</displayed-value></pair><pair><stored-value>cym</stored-value><displayed-value>Gal&#xE9;s</displayed-value></pair><pair><stored-value>wol</stored-value><displayed-value>Wolof</displayed-value></pair><pair><stored-value>sah</stored-value><displayed-value>Yakuto</displayed-value></pair><pair><stored-value>yor</stored-value><displayed-value>Yoruba</displayed-value></pair></value-pairs>
 
- </form-value-pairs>
+		<value-pairs value-pairs-name="common_acceso" dc-term="common_acceso">
+			<pair>
+				<displayed-value>Acceso abierto</displayed-value>
+				<stored-value>Acceso abierto</stored-value>
+			</pair>
+			<pair>
+				<displayed-value>Acceso cerrado</displayed-value>
+				<stored-value>Acceso cerrado</stored-value>
+			</pair>
+			<pair>
+				<displayed-value>Acceso embargado</displayed-value>
+				<stored-value>Acceso embargado</stored-value>
+			</pair>
+			<pair>
+				<displayed-value>Acceso restringido</displayed-value>
+				<stored-value>Acceso restringido</stored-value>
+			</pair>
+		</value-pairs>
+	<value-pairs value-pairs-name="common_audiencia" dc-term="audiencia"><pair><stored-value>administrators</stored-value><displayed-value>Administradores</displayed-value></pair><pair><stored-value>beneficiariesFundsFederalAppli</stored-value><displayed-value>Beneficiarios de fondos federales y solicitantes</displayed-value></pair><pair><stored-value>librarians</stored-value><displayed-value>Bibliotecarios</displayed-value></pair><pair><stored-value>counsellors</stored-value><displayed-value>Consejeros</displayed-value></pair><pair><stored-value>companies</stored-value><displayed-value>Empresas</displayed-value></pair><pair><stored-value>students</stored-value><displayed-value>Estudiantes</displayed-value></pair><pair><stored-value>communityGroups</stored-value><displayed-value>Grupos comunitarios</displayed-value></pair><pair><stored-value>researchers</stored-value><displayed-value>Investigadores</displayed-value></pair><pair><stored-value>teachers</stored-value><displayed-value>Maestros</displayed-value></pair><pair><stored-value>newsMedia</stored-value><displayed-value>Medios de comunicaci&#xF3;n</displayed-value></pair><pair><stored-value>other</stored-value><displayed-value>Otros</displayed-value></pair><pair><stored-value>parentsAndFamilies</stored-value><displayed-value>Padres y Familias</displayed-value></pair><pair><stored-value>schoolSupportStaff</stored-value><displayed-value>Personal de apoyo escolar</displayed-value></pair><pair><stored-value>legislators</stored-value><displayed-value>Legisladores</displayed-value></pair><pair><stored-value>studentFinancialAidProviders</stored-value><displayed-value>Proveedores de fondos para estudiantes</displayed-value></pair><pair><stored-value>generalPublic</stored-value><displayed-value>P&#xFA;blico en general</displayed-value></pair></value-pairs>
+		
+		
+		
+	</form-value-pairs>
 
 </input-forms>
