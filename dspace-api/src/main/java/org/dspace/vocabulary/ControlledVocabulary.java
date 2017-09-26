@@ -33,12 +33,14 @@ public class ControlledVocabulary {
     private String id;
     private String label;
     private String value;
+    private String ids;
     private List<ControlledVocabulary> childNodes;
 
-    public ControlledVocabulary(String id, String label, String value, List<ControlledVocabulary> childNodes) {
+    public ControlledVocabulary(String id, String label, String value, String ids,  List<ControlledVocabulary> childNodes) {
         this.id = id;
         this.label = label;
         this.value = value;
+        this.ids = ids;
         this.childNodes = childNodes;
     }
 
@@ -62,7 +64,7 @@ public class ControlledVocabulary {
         if(controlledVocFile.exists()){
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = builder.parse(controlledVocFile);
-            return loadVocabularyNode(XPathAPI.selectSingleNode(document, "node"), "");
+            return loadVocabularyNode(XPathAPI.selectSingleNode(document, "node"), "", "");
         }else{
             return null;
         }
@@ -76,7 +78,7 @@ public class ControlledVocabulary {
      * @return a vocabulary node with all its children
      * @throws TransformerException should something go wrong with loading the xml
      */
-    private static ControlledVocabulary loadVocabularyNode(Node node, String initialValue) throws TransformerException {
+    private static ControlledVocabulary loadVocabularyNode(Node node, String initialValue, String initialIds) throws TransformerException {
         Node idNode = node.getAttributes().getNamedItem("id");
         String id = null;
         if(idNode != null){
@@ -93,14 +95,22 @@ public class ControlledVocabulary {
         }else{
             value = label;
         }
+        
+        String ids;
+        if(0 < initialIds.length()){
+        	ids = initialIds + "||" + id;
+        }else{
+        	ids = id;
+        }
+        
         NodeList subNodes = XPathAPI.selectNodeList(node, "isComposedBy/node");
 
         List<ControlledVocabulary> subVocabularies = new ArrayList<ControlledVocabulary>(subNodes.getLength());
         for(int i = 0; i < subNodes.getLength(); i++){
-            subVocabularies.add(loadVocabularyNode(subNodes.item(i), value));
+            subVocabularies.add(loadVocabularyNode(subNodes.item(i), value, ids));
         }
         
-        return new ControlledVocabulary(id, label, value, subVocabularies);
+        return new ControlledVocabulary(id, label, value, ids, subVocabularies);
     }
 
     public String getId() {
@@ -134,4 +144,13 @@ public class ControlledVocabulary {
     public void setValue(String value) {
         this.value = value;
     }
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+    
 }

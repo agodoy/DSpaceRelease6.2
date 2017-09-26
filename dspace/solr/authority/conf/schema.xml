@@ -301,6 +301,7 @@
      <field name="institution" type="string" multiValued="false" indexed="true" stored="true" required="false"/>
      <field name="value" type="text" multiValued="false" indexed="true" stored="true" required="false"/>
 
+     <field name="cvu_id" type="string" multiValued="false" indexed="true" stored="true" required="false"/>
      <field name="curp_id" type="string" multiValued="false" indexed="true" stored="true" required="false"/>
      <field name="orcid_id" type="string" multiValued="false" indexed="true" stored="true" required="false"/>
      <field name="first_name" type="text" multiValued="false" indexed="true" stored="true" required="false"/>

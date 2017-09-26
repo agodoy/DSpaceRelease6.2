@@ -104,19 +104,9 @@ public class CurpServiceImpl implements CurpService {
 
 		curpAuth.setId(UUID.randomUUID().toString());
 		curpAuth.setCurp_id(curpData.getCurp());
+		curpAuth.setCvu_id(curpData.getIdCvuConacyt());
 		curpAuth.setCreationDate(new Date());
 		curpAuth.setLastModified(new Date());
-
-//		if (curpData.getNombres() != null && !curpData.getNombres().isEmpty())
-//			curpAuth.setFirstName(StringUtils.capitalize(curpData.getNombres().toLowerCase()));
-//
-//		if (curpData.getPrimerApellido() != null && !curpData.getPrimerApellido().isEmpty())
-//			if (curpData.getSegundoApellido() != null && !curpData.getSegundoApellido().isEmpty())
-//				curpAuth.setLastName(StringUtils.capitalize(curpData.getPrimerApellido().toLowerCase()) + " "
-//						+ StringUtils.capitalize(curpData.getSegundoApellido().toLowerCase()));
-//			else
-//				curpAuth.setLastName(StringUtils.capitalize(curpData.getPrimerApellido().toLowerCase()));
-
 		curpAuth.setFirstName(curpData.getNombres());
 		curpAuth.setLastName(curpData.getPrimerApellido() + " " + curpData.getSegundoApellido());
 		curpAuth.setValue(curpAuth.getLastName() + ", " + curpAuth.getFirstName());
@@ -124,9 +114,15 @@ public class CurpServiceImpl implements CurpService {
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("curp_id:" + curpData.getCurp());
-		QueryResponse response = solrService.search(solrQuery);
+		QueryResponse responseCurp = solrService.search(solrQuery);
 
-		if (response.getResults().isEmpty())
+		QueryResponse responseCvu = null;
+		if (StringUtils.isNotBlank(curpData.getIdCvuConacyt())) {
+			solrQuery.setQuery("cvu_id:" + curpData.getIdCvuConacyt());
+			responseCvu = solrService.search(solrQuery);
+		}
+
+		if (responseCurp.getResults().isEmpty() || (responseCvu!=null && responseCvu.getResults().isEmpty()))
 			indexingService.indexContent(curpAuth, true);
 
 		indexingService.commit();

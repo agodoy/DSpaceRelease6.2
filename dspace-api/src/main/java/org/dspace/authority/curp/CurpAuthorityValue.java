@@ -30,6 +30,7 @@ public class CurpAuthorityValue extends PersonAuthorityValue {
     private static Logger log = Logger.getLogger(CurpAuthorityValue.class);
 
     private String curp_id;
+    private String cvu_id;
     private Map<String, List<String>> otherMetadata = new HashMap<String, List<String>>();
     private boolean update; // used in setValues(Bio bio)
 
@@ -46,7 +47,15 @@ public class CurpAuthorityValue extends PersonAuthorityValue {
         super(document);
     }
 
-    public String getCurp_id() {
+    public String getCvu_id() {
+		return cvu_id;
+	}
+
+	public void setCvu_id(String cvu_id) {
+		this.cvu_id = cvu_id;
+	}
+
+	public String getCurp_id() {
 		return curp_id;
 	}
 
@@ -72,6 +81,7 @@ public class CurpAuthorityValue extends PersonAuthorityValue {
         SolrInputDocument doc = super.getSolrInputDocument();
         if (StringUtils.isNotBlank(getCurp_id())) {
             doc.addField("curp_id", getCurp_id());
+            doc.addField("cvu_id", getCvu_id());
         }
 
         for (String t : otherMetadata.keySet()) {
@@ -87,6 +97,7 @@ public class CurpAuthorityValue extends PersonAuthorityValue {
     public void setValues(SolrDocument document) {
         super.setValues(document);
         this.curp_id = String.valueOf(document.getFieldValue("curp_id"));
+        this.cvu_id = String.valueOf(document.getFieldValue("cvu_id"));
 
         otherMetadata = new HashMap<String, List<String>>();
         for (String fieldName : document.getFieldNames()) {
@@ -215,7 +226,10 @@ public class CurpAuthorityValue extends PersonAuthorityValue {
 
         Map<String, String> map = super.choiceSelectMap();
 
+        if(getCurp_id()!=null && StringUtils.isNotBlank(getCurp_id()))
         map.put("curpid", getCurp_id());
+        if(getCvu_id()!=null  && StringUtils.isNotBlank(getCvu_id()))
+        map.put("cvuid", getCvu_id());
 
         return map;
     }

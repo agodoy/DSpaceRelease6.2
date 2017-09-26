@@ -11,7 +11,14 @@ public class CurpData {
 	String nombres;
 	String primerApellido;
 	String segundoApellido;
-	
+	String idCvuConacyt;
+
+	public String getIdCvuConacyt() {
+		return idCvuConacyt;
+	}
+	public void setIdCvuConacyt(String idCvuConacyt) {
+		this.idCvuConacyt = idCvuConacyt;
+	}
 	public String getCorreoE() {
 		return correoE;
 	}

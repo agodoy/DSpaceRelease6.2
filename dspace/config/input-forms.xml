@@ -154,7 +154,17 @@ it, please enter the types and the actual numbers or codes.</hint>
      </page>
 
      <page number="2">
-       <field>
+	<field>
+         <dc-schema>dc</dc-schema>
+         <dc-element>identificator</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>ID</label>
+         <input-type>onebox</input-type>
+         <hint> </hint>
+         <required></required>
+       </field>
+	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>subject</dc-element>
          <dc-qualifier></dc-qualifier>
@@ -166,7 +176,6 @@ it, please enter the types and the actual numbers or codes.</hint>
          <required></required>
          <vocabulary>srsc</vocabulary>
        </field>
-
        <field>
          <dc-schema>dc</dc-schema>
          <dc-element>description</dc-element>
