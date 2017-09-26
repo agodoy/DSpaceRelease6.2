@@ -241,16 +241,7 @@
 					<hint>Audiencia a la que esta dirigida</hint>
 					<required/>
 				</field>
-	<field>
-         <dc-schema>dc</dc-schema>
-         <dc-element>identificator</dc-element>
-         <dc-qualifier></dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>ID</label>
-         <input-type>onebox</input-type>
-         <hint> </hint>
-         <required></required>
-       </field>
+
 				
 				<field>
 					<dc-schema>dc</dc-schema>
