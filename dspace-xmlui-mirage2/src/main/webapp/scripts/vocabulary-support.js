@@ -115,8 +115,11 @@
                                     e.stopPropagation();
                                     var $this = $(this);
                                     var inputFieldName = vocabularyDialog.find('input[type="hidden"][name="metadataFieldName"]').val();
-                                    $('input[name="' + inputFieldName + '"]').val($this.attr('href'));
 
+                                    var arr = $this.attr('href').split('//');
+                                    
+                                    $('input[name="' + inputFieldName + '"]').val(arr[0]);
+                                    $('input:text[name=dc_identificator]').val(arr[1]);
                                     //Close the current dialog
                                     vocabularyDialog.modal('hide');
                                     return false;
@@ -175,10 +178,8 @@
         var vocabularyIcon =  $( '<span class="vocabulary-node-icon btn-xs glyphicon ' + vocabularyTypeClass + '"></span>');
         vocabularyIcon.attr('id', 'node_' + data.id);
         vocabularyIcon.appendTo(parent)
-
-
         var link = document.createElement('a');
-        link.setAttribute('href', data.value);
+        link.setAttribute('href', data.value+ '//' +data.ids);
         link.setAttribute('class', 'vocabulary-label');
         //Also store a to lower cased value of our label in the link, this will be used for filtering
         link.setAttribute('filter', data.value.toLowerCase());
