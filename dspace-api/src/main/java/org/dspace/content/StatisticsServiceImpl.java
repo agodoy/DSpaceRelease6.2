@@ -16,6 +16,7 @@ import org.dspace.content.dao.MetadataValueDAO;
 import org.dspace.core.Context;
 import org.dspace.services.ConfigurationService;
 import org.dspace.statistics.ObjectCount;
+import org.dspace.statistics.ObjectStatistics;
 import org.dspace.statistics.service.SolrLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -136,12 +137,14 @@ public class StatisticsServiceImpl extends DSpaceObjectServiceImpl<Holder> imple
 	}
 
 	@Override
-	public ObjectCount[] downloadItemsStatistics(Context context) throws SolrServerException, SQLException {
+	public ObjectStatistics[] downloadItemsStatistics(Context context) throws SolrServerException, SQLException {
 
 		String url = configurationService.getProperty("dspace.baseUrl");
 		ObjectCount[] bitstreams = solrLoggerService.queryFacetField("type:0", "statistics_type:view", "id", 5000000,
 				false, null);
-
+		
+		ObjectStatistics[] objectStatistics = new ObjectStatistics[bitstreams.length];
+		Integer i = 0;
 		for (ObjectCount objectCount : bitstreams) {
 			Bitstream bitstream;
 			try {
@@ -151,12 +154,16 @@ public class StatisticsServiceImpl extends DSpaceObjectServiceImpl<Holder> imple
 				bitstream = bitstreamDao.findByID(context, Bitstream.class, UUID.fromString(objectCount.getValue()));
 			}
 			
+			
 			if(!bitstream.getBundles().isEmpty() && !bitstream.getBundles().get(0).getItems().isEmpty())
 				objectCount.setValue(url + "/handle/" + bitstream.getBundles().get(0).getItems().get(0).getHandle());
 			
+			objectStatistics[i].setId(objectCount.getValue());
+			objectStatistics[i].setNumber(objectCount.getCount());
+			i++;
 		}
 
-		return bitstreams;
+		return objectStatistics;
 	}
 
 	@Override

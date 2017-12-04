@@ -30,6 +30,7 @@ import org.dspace.content.service.WorkspaceItemService;
 import org.dspace.rest.common.Holder;
 import org.dspace.rest.exceptions.ContextException;
 import org.dspace.statistics.ObjectCount;
+import org.dspace.statistics.ObjectStatistics;
 
 /**
  * This class provides all CRUD operation over holders.
@@ -134,9 +135,9 @@ public class StatisticsResource extends Resource {
 	@GET
 	@Path("/descargas")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public ObjectCount[] downloadItems() throws WebApplicationException {
+	public ObjectStatistics[] downloadItems() throws WebApplicationException {
 
-		ObjectCount[] result = null;
+		ObjectStatistics[] result = null;
 		org.dspace.core.Context context = null;
 
 		try {

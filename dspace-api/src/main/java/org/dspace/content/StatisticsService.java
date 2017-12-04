@@ -9,6 +9,7 @@ import org.dspace.content.service.DSpaceObjectLegacySupportService;
 import org.dspace.content.service.DSpaceObjectService;
 import org.dspace.core.Context;
 import org.dspace.statistics.ObjectCount;
+import org.dspace.statistics.ObjectStatistics;
 
 public interface StatisticsService extends DSpaceObjectService<Holder>, DSpaceObjectLegacySupportService<Community>
 {
@@ -17,7 +18,7 @@ public interface StatisticsService extends DSpaceObjectService<Holder>, DSpaceOb
 
 	ObjectCount[] viewItemsStatistics(Context context) throws SolrServerException, SQLException;
 
-	ObjectCount[] downloadItemsStatistics(Context context) throws SolrServerException, SQLException;
+	ObjectStatistics[] downloadItemsStatistics(Context context) throws SolrServerException, SQLException;
 
 	HashMap authorsStatistics(Context context) throws SolrServerException, SQLException;
 
